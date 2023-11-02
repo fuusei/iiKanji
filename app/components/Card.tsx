@@ -18,11 +18,12 @@ export const Card: React.FC<KanjiModel> = ({
         <div className="font-gameboy text-granny-apple p-2">{`Kunyomi: ${kunyomi}`}</div>
         <div className="font-gameboy p-2">{`Meaning: ${meaning}`}</div>
         {examples.map((ex, i) => (
-          <div className="flex flex-row items-center">
-            <KanjiFurigana kanji={ex.word} furigana={ex.furigana}/>
-            <div> = </div>
-            <div className="font-gameboy">{`${ex.meaning}`}</div>
-          </div>
+          <KanjiFurigana
+            key={i}
+            kanji={ex.word}
+            furigana={ex.furigana}
+            meaning={ex.meaning}
+          />
         ))}
       </div>
     </div>
