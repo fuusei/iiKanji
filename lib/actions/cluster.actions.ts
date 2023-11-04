@@ -1,7 +1,7 @@
 "use server";
-import Cluster from "../models/kanji.model";
+import Cluster from "../models/cluster.model";
 import { connectToDB } from "../mongoose";
-import { KanjiModel } from "./kanji.actions";
+import { ClusterModel } from "../interfaces";
 
 export async function fetchClusters() {
   try {
@@ -11,12 +11,6 @@ export async function fetchClusters() {
     throw new Error(`Failed to fetch user: ${error.message}`);
   }
 }
-
-export interface ClusterModel {
-  similarity: String;
-  kanji: KanjiModel[];
-}
-
 export async function createCluster({ similarity, kanji }: ClusterModel) {
   try {
     connectToDB();

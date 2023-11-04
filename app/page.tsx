@@ -1,6 +1,6 @@
 import { Landing } from "./components/Landing";
+import { KanjiModel } from "@/lib/interfaces";
 import {
-  KanjiModel,
   createKanji,
   fetchKanji,
 } from "@/lib/actions/kanji.actions";

@@ -1,5 +1,6 @@
 "use server";
 import Kanji from "../models/kanji.model";
+import { KanjiModel } from "../interfaces";
 import { connectToDB } from "../mongoose";
 
 export async function fetchKanji() {
@@ -14,20 +15,6 @@ export async function fetchKanji() {
   }
 }
 
-export interface Example {
-  word: string;
-  furigana: string;
-  meaning: string;
-}
-
-export interface KanjiModel {
-  kanji: string;
-  onyomi?: string;
-  kunyomi?: string;
-  meaning: string;
-  examples: Example[];
-}
-
 export async function createKanji({
   kanji,
   onyomi,
@@ -39,6 +26,12 @@ export async function createKanji({
     connectToDB();
     await Kanji.create({ kanji, onyomi, kunyomi, meaning, examples });
   } catch (error: any) {
-    throw new Error(`Failed to create kanji: ${error.message}`);
+    if(error.code === 11000) {
+      throw new Error("Kanji already exists.")
+    }
+    else {
+      throw new Error(error);
+    }
+    
   }
 }
